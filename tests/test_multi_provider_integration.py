@@ -78,6 +78,25 @@ async def test_symbol_alone_never_merges(engine, instrument):
         await cleanup(engine, [instrument.instrument_id, second.instrument_id])
 
 
+async def test_same_provider_scrips_with_shared_isin_stay_distinct(engine, instrument):
+    repo = MarketRepository(engine)
+    first = instrument.model_copy(update={
+        'instrument_id': 'shared-isin-first', 'provider': 'sharekhan',
+        'provider_key': 'NC801', 'isin': 'INE000DUPE01',
+    })
+    second = first.model_copy(update={
+        'instrument_id': 'shared-isin-second', 'provider_key': 'NC802', 'symbol': 'SECOND',
+    })
+    try:
+        assert await repo.sync_instruments([first, second]) == 2
+        assert await repo.sync_instruments([second, first]) == 2
+        assert (await repo.mapped_instrument(first.instrument_id, 'sharekhan')).provider_key == 'NC801'
+        assert (await repo.mapped_instrument(second.instrument_id, 'sharekhan')).provider_key == 'NC802'
+        assert len(await repo.instruments('INE000DUPE01')) == 2
+    finally:
+        await cleanup(engine, [first.instrument_id, second.instrument_id])
+
+
 async def test_lease_fencing_and_concurrent_deduplication(engine):
     queue = JobQueue(engine, AsyncMock())
     key = 'test:' + uuid4().hex

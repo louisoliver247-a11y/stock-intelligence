@@ -31,7 +31,15 @@ class MarketRepository:
                         AND expiry IS NULL AND strike IS NULL"""),
                         {"isin": instrument.isin, "exchange": instrument.exchange})).scalars().all()
                     if len(matches) == 1:
-                        mapped = matches[0]
+                        # An ISIN can occur under multiple distinct scrip codes.
+                        # Only merge across providers, never two identities from
+                        # the same provider into its single canonical mapping.
+                        occupied = (await conn.execute(text("""SELECT 1
+                            FROM instrument_provider_mappings
+                            WHERE instrument_id=:id AND provider=:provider"""),
+                            {"id": matches[0], "provider": instrument.provider})).scalar_one_or_none()
+                        if occupied is None:
+                            mapped = matches[0]
                 if mapped:
                     instrument = instrument.model_copy(update={"instrument_id": mapped})
                 values = instrument.model_dump()
