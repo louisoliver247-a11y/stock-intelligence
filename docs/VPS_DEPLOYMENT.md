@@ -31,7 +31,8 @@ cd /opt/stock-intelligence
 ```
 
 Deployment smoke checks and production login/create/delete/role/session tests
-passed. Public HTTPS remains pending DNS at the time of this deployment report.
+passed. DNS and public HTTPS were verified on 2026-09-29. Public administrator
+login, user listing, and logout also passed with certificate verification enabled.
 
 ## DNS and HTTPS
 
@@ -56,7 +57,10 @@ journalctl -u stock-intelligence-https --no-pager -n 30
 
 Completion is recorded at `/var/lib/stock-intelligence/tls/complete`.
 The certificate is installed under
-`/etc/letsencrypt/live/trading.caselawindia.io/`; acme.sh handles renewal.
+`/etc/letsencrypt/live/trading.caselawindia.io/`. The
+`stock-intelligence-certificate-renew.timer` runs acme.sh daily with its
+service-created account home at `/.acme.sh`; successful renewal reloads
+OpenLiteSpeed. The initial certificate expires 2026-12-28.
 The server's CyberPanel-added `/etc/hosts` entries point to loopback, so the
 automation deliberately queries public DNS rather than the local hosts file.
 
@@ -80,3 +84,4 @@ run the smoke check. Keep `.env`, database storage, and Redis storage intact.
 Update the installed helper copies in `/usr/local/sbin` if their repository
 versions change. When changing the domain later, update the virtual host,
 certificate, `WEB_ORIGIN`, OAuth redirect configuration, and HTTPS helper.
+
