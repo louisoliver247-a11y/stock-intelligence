@@ -98,4 +98,25 @@ describe("foundation terminal", () => {
       vi.unstubAllGlobals();
     }
   });
+  it("requests the selected historical timeframe", async () => {
+    const fetcher = vi.fn(async (url: string) => {
+      let data: unknown = [];
+      if (url.includes('/auth/login')) data = {token: 'session-token'};
+      if (url.includes('/market/status')) data = {services: {}, counts: {}};
+      if (url.includes('/instruments?')) data = [{instrument_id: 'test', symbol: 'TEST', exchange: 'NSE'}];
+      return {ok: true, json: async () => data};
+    });
+    vi.stubGlobal('fetch', fetcher);
+    render(<App />); await signIn();
+    await screen.findByRole('option', {name: /TEST/});
+    fireEvent.change(screen.getByLabelText('Instrument'), {target: {value: 'test'}});
+    fireEvent.change(screen.getByLabelText('From'), {target: {value: '2026-09-21'}});
+    fireEvent.change(screen.getByLabelText('Through'), {target: {value: '2026-09-28'}});
+    fireEvent.click(screen.getByRole('button', {name: 'Load chart'}));
+    await waitFor(() => expect(fetcher.mock.calls.some(([url]) => url.includes('/candles?') && url.includes('timeframe=1d'))).toBe(true));
+    await waitFor(() => expect(screen.getByRole('button', {name: 'Load chart'})).toBeEnabled());
+    fireEvent.change(screen.getByLabelText('Timeframe'), {target: {value: '1m'}});
+    fireEvent.click(screen.getByRole('button', {name: 'Load chart'}));
+    await waitFor(() => expect(fetcher.mock.calls.some(([url]) => url.includes('/candles?') && url.includes('timeframe=1m'))).toBe(true));
+  });
 });

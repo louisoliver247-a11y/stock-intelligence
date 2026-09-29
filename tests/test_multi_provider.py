@@ -22,7 +22,7 @@ from market_data.sharekhan.auth import exchange_request_token
 from market_data.sharekhan.http import SharekhanHTTP
 from market_data.sharekhan.normalize import normalize_candle, normalize_instrument
 from market_data.sharekhan.provider import SharekhanProvider
-from market_data.sharekhan.websocket import SharekhanFeed, decode_message
+from market_data.sharekhan.websocket import SharekhanFeed, decode_message, decode_messages
 from market_data.upstox.provider import UpstoxProvider
 
 
@@ -61,7 +61,7 @@ def test_sharekhan_history(instrument, calendar, session):
 
 def feed_message():
     return json.dumps({'status': 100, 'message': 'feed', 'data': {'exchangeCode': 'NC', 'scripCode': 1,
-        'lastUpdatedTime': '02/01/2025 09:16:00', 'ltp': 100, 'qty': 123, 'currentOI': 7,
+        'lastUpdatedTime': '01/02/2025 09:16:00', 'ltp': 100, 'qty': 123, 'currentOI': 7,
         'bidPrice': 99, 'bidQty': 10, 'offPrice': 101, 'offQty': 20}})
 
 
@@ -70,6 +70,19 @@ def test_sharekhan_quote_decode(instrument):
     assert tick.provider == 'sharekhan' and tick.price == 100 and tick.open_interest == 7
     assert tick.cumulative_volume == 123 and tick.depth[0].ask_price == 101
     assert decode_message('pong', {}) is None
+
+
+def test_sharekhan_batched_feed_uses_stream_date_and_trade_time(instrument):
+    row = json.loads(feed_message())['data']
+    rows = [{**row, 'scripCode': code, 'lastUpdatedTime': '09/29/2026 16:00:00',
+             'ltt': '09/29/2026 15:59:14'} for code in (1, 2)]
+    instruments = {'NC1': instrument, 'NC2': instrument.model_copy(update={'instrument_id': 'second'})}
+    ticks = decode_messages(json.dumps({'status': 100, 'message': 'feed', 'data': rows}), instruments)
+    assert [t.instrument_id for t in ticks] == [instrument.instrument_id, 'second']
+    assert ticks[0].timestamp.isoformat() == '2026-09-29T15:59:14+05:30'
+    assert decode_messages('"pong"', instruments) == []
+    with pytest.raises(Exception, match='INVALID_FEED_MESSAGE'):
+        decode_messages(json.dumps({'status': 100, 'message': 'feed', 'data': [None]}), instruments)
 
 
 async def test_sharekhan_reconnect_resubscribe(instrument):
@@ -94,6 +107,7 @@ async def test_sharekhan_reconnect_resubscribe(instrument):
     assert len([s for s in sent if s['action'] == 'subscribe']) == 2
     await feed.unsubscribe([instrument.instrument_id])
     assert sent[-1]['action'] == 'unsubscribe' and not feed.requested
+    assert sent[-1]['key'] == ['ltp']
     await stream.aclose()
 
 

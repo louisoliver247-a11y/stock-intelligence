@@ -58,6 +58,7 @@ function Workspace({ apiKey: key, onSignOut }: { apiKey: string; onSignOut: () =
   const [candles, setCandles] = useState<Candle[]>([]);
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
+  const [timeframe, setTimeframe] = useState("1d");
   const [calendar, setCalendar] = useState("");
   const [theme, setTheme] = useState("dark");
   const refresh = useCallback(async () => {
@@ -115,11 +116,11 @@ function Workspace({ apiKey: key, onSignOut }: { apiKey: string; onSignOut: () =
       const result = await request<{ job_id: string }>("/history/ingest", key, {
         instrument_id: instrument,
         provider: selectedProvider || null,
-        timeframe: "1m",
+        timeframe,
         start,
         end,
       });
-      setNotice(`History queued · ${result.job_id}`);
+      setNotice(`History queued Â· ${result.job_id}`);
     });
   const loadChart = () =>
     action(async () => {
@@ -127,7 +128,7 @@ function Workspace({ apiKey: key, onSignOut }: { apiKey: string; onSignOut: () =
         instrument_id: instrument,
         start: `${start}T00:00:00+05:30`,
         end: `${end}T23:59:59+05:30`,
-        timeframe: "1m",
+        timeframe,
       });
       const data = await request<Candle[]>(`/candles?${params}`, key);
       setCandles(data.filter((c) => c.is_complete));
@@ -172,7 +173,7 @@ function Workspace({ apiKey: key, onSignOut }: { apiKey: string; onSignOut: () =
         </nav>
         <div className="sidebar-footer">
           <span className="dot amber" /> Foundation build{" "}
-          <small>Milestones 0–1 · Data infrastructure</small>
+          <small>Milestones 0â€“1 Â· Data infrastructure</small>
         </div>
       </aside>
       <main>
@@ -187,7 +188,7 @@ function Workspace({ apiKey: key, onSignOut }: { apiKey: string; onSignOut: () =
               catch { /* Clear this browser's session even if the server is unavailable. */ }
               finally { onSignOut(); }
             }}>Sign out</button>
-            <span className="tag">NSE · IST</span>
+            <span className="tag">NSE Â· IST</span>
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               aria-label="Toggle color theme"
@@ -208,12 +209,12 @@ function Workspace({ apiKey: key, onSignOut }: { apiKey: string; onSignOut: () =
               </p>
             </div>
             <button disabled={!key || busy} onClick={() => void refresh()}>
-              ↻ Refresh
+              â†» Refresh
             </button>
           </div>
           {error && (
             <div role="alert" className="message error">
-              {error} · Check backend connectivity and configuration.
+              {error} Â· Check backend connectivity and configuration.
             </div>
           )}
           {notice && (
@@ -243,17 +244,17 @@ function Workspace({ apiKey: key, onSignOut }: { apiKey: string; onSignOut: () =
                   ],
                   [
                     "Stored candles",
-                    status?.counts.candles?.toLocaleString() ?? "—",
+                    status?.counts.candles?.toLocaleString() ?? "â€”",
                     "Canonical historical data",
                   ],
                   [
                     "Instruments",
-                    status?.counts.instruments?.toLocaleString() ?? "—",
+                    status?.counts.instruments?.toLocaleString() ?? "â€”",
                     "Synchronized instrument master",
                   ],
                   [
                     "Quality issues",
-                    status?.counts.quality_issues?.toLocaleString() ?? "—",
+                    status?.counts.quality_issues?.toLocaleString() ?? "â€”",
                     "Unresolved integrity checks",
                   ],
                 ].map(([label, value, hint]) => (
@@ -278,7 +279,7 @@ function Workspace({ apiKey: key, onSignOut }: { apiKey: string; onSignOut: () =
                     <div>
                       <h2>Price history</h2>
                       <p className="muted">
-                        Completed 1-minute candles · NSE · Asia/Kolkata
+                        Completed 1-minute candles Â· NSE Â· Asia/Kolkata
                       </p>
                     </div>
                     <span className="tag">FACT / OHLCV</span>
@@ -300,6 +301,15 @@ function Workspace({ apiKey: key, onSignOut }: { apiKey: string; onSignOut: () =
                   </div>
                   <div className="data-controls">
                     <label>
+                      Timeframe
+                      <select value={timeframe} onChange={e => {
+                        setTimeframe(e.target.value); setCandles([]);
+                      }}>
+                        <option value="1d">Daily</option>
+                        <option value="1m">1 minute</option>
+                      </select>
+                    </label>
+                    <label>
                       Instrument
                       <select
                         value={instrument}
@@ -311,7 +321,7 @@ function Workspace({ apiKey: key, onSignOut }: { apiKey: string; onSignOut: () =
                         <option value="">Select instrument</option>
                         {instruments.map((i) => (
                           <option key={i.instrument_id} value={i.instrument_id}>
-                            {i.symbol} · {i.exchange}
+                            {i.symbol} Â· {i.exchange}
                           </option>
                         ))}
                       </select>
@@ -394,7 +404,7 @@ function Workspace({ apiKey: key, onSignOut }: { apiKey: string; onSignOut: () =
                       })
                     }
                   >
-                    Connect Upstox ↗
+                    Connect Upstox â†—
                   </button>
                 </section>
               </div>
@@ -476,7 +486,7 @@ function Workspace({ apiKey: key, onSignOut }: { apiKey: string; onSignOut: () =
                               timeZone: "Asia/Kolkata",
                             })}
                           </td>
-                          <td>{j.error_code ?? "—"}</td>
+                          <td>{j.error_code ?? "â€”"}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -527,7 +537,7 @@ function Workspace({ apiKey: key, onSignOut }: { apiKey: string; onSignOut: () =
           <footer>
             STOCK INTELLIGENCE{" "}
             <span>
-              Deterministic research infrastructure · No order execution
+              Deterministic research infrastructure Â· No order execution
             </span>
           </footer>
         </div>

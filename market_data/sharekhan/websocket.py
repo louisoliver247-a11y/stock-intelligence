@@ -11,22 +11,40 @@ from market_data.sharekhan.normalize import normalize_quote
 log = logging.getLogger(__name__)
 
 
-def decode_message(message, instruments):
-    if message == 'pong':
-        return None
+def decode_messages(message, instruments):
+    if message in ('ping', 'pong'):
+        return []
     try:
         body = json.loads(message)
+        if body in ('ping', 'pong'):
+            return []
+        if not isinstance(body, dict):
+            raise ValueError()
         if body.get('status') != 100:
             raise ValueError()
         if body.get('message') != 'feed':
-            return None
-        row = body['data']
-        key = str(row['exchangeCode']) + str(row['scripCode'])
-        if key not in instruments:
-            return None
-        return normalize_quote(row, instruments[key])
+            return []
+        rows = body['data']
+        if isinstance(rows, dict):
+            rows = [rows]
+        if not isinstance(rows, list):
+            raise ValueError()
+        ticks = []
+        for row in rows:
+            if not isinstance(row, dict):
+                raise ValueError()
+            key = str(row['exchangeCode']) + str(row['scripCode'])
+            if key in instruments:
+                ticks.append(normalize_quote(row, instruments[key]))
+        return ticks
     except (ValueError, KeyError, TypeError):
         raise ProviderError('INVALID_FEED_MESSAGE') from None
+
+
+def decode_message(message, instruments):
+    """Compatibility helper for callers consuming a single quote."""
+    ticks = decode_messages(message, instruments)
+    return ticks[0] if ticks else None
 
 
 class SharekhanFeed:
@@ -48,7 +66,7 @@ class SharekhanFeed:
             del self.requested[key]
             self.active.discard(key)
         if self.socket and keys:
-            await self.socket.send(json.dumps({'action': 'unsubscribe', 'key': ['feed'],
+            await self.socket.send(json.dumps({'action': 'unsubscribe', 'key': ['ltp'],
                                                'value': [','.join(keys)]}))
 
     async def stream(self, instruments):
@@ -72,8 +90,7 @@ class SharekhanFeed:
                     self.resubscribing = False
                     await self.connected()
                     async for message in socket:
-                        tick = decode_message(message, self.requested)
-                        if tick:
+                        for tick in decode_messages(message, self.requested):
                             delay = 1
                             yield tick
             except asyncio.CancelledError:

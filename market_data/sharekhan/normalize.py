@@ -46,7 +46,8 @@ def normalize_candle(row, instrument, timeframe, calendar, as_of):
 
 
 def normalize_quote(row, instrument):
-    timestamp = datetime.strptime(row['lastUpdatedTime'], '%d/%m/%Y %H:%M:%S').replace(tzinfo=IST)
+    # Streaming dates are month/day/year, unlike historical tradeDate.
+    timestamp = datetime.strptime(row.get('ltt') or row['lastUpdatedTime'], '%m/%d/%Y %H:%M:%S').replace(tzinfo=IST)
     depth = ()
     if all(k in row for k in ('bidPrice', 'bidQty', 'offPrice', 'offQty')):
         depth = (DepthLevel(bid_price=row['bidPrice'], bid_quantity=row['bidQty'],
