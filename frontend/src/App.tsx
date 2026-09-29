@@ -7,7 +7,8 @@ import {
   type Status,
   type ProviderStatus,
 } from "./api";
-import { LoginForm, Users } from "./Users";
+import { Users } from "./Users";
+import { LoginPage } from "./LoginPage";
 import { Chart } from "./Chart";
 
 const later = [
@@ -22,8 +23,25 @@ const later = [
 const human = (value: string) => value.toLowerCase().replaceAll("_", " ");
 
 export default function App() {
-  const [key, setKey] = useState("");
-  const [draftKey, setDraftKey] = useState("");
+  const [token, setToken] = useState("");
+  const [loginNotice, setLoginNotice] = useState("");
+  useEffect(() => {
+    const expired = (event: Event) => {
+      if (token && (event as CustomEvent<string>).detail === token) {
+        setToken("");
+        setLoginNotice("Your session has expired. Please sign in again.");
+      }
+    };
+    window.addEventListener("session-expired", expired);
+    return () => window.removeEventListener("session-expired", expired);
+  }, [token]);
+  if (!token) return <LoginPage notice={loginNotice} onLogin={value => {
+    setLoginNotice(""); setToken(value);
+  }} />;
+  return <Workspace apiKey={token} onSignOut={() => setToken("")} />;
+}
+
+function Workspace({ apiKey: key, onSignOut }: { apiKey: string; onSignOut: () => void }) {
   const [page, setPage] = useState("Dashboard");
   const [status, setStatus] = useState<Status | null>(null);
   const [error, setError] = useState("");
@@ -163,6 +181,12 @@ export default function App() {
             Workspace <span>/</span> {page}
           </div>
           <div className="header-actions">
+            <button disabled={busy} onClick={async () => {
+              setBusy(true);
+              try { await request("/auth/logout", key, {}); }
+              catch { /* Clear this browser's session even if the server is unavailable. */ }
+              finally { onSignOut(); }
+            }}>Sign out</button>
             <span className="tag">NSE · IST</span>
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -187,38 +211,6 @@ export default function App() {
               ↻ Refresh
             </button>
           </div>
-          {key && <button onClick={() => void action(async () => { await request("/auth/logout", key, {}); setKey(""); setStatus(null); setProviders([]); setJobs([]); setCandles([]); setInstruments([]); setPage("Dashboard"); }, false)}>Sign out</button>}
-          {!key && <LoginForm onLogin={setKey} />}
-          {!key && (
-            <section className="panel connection">
-              <div>
-                <h2>Connect to your workspace</h2>
-                <p className="muted">
-                  Enter the operator API key configured on your backend. It
-                  stays in memory for this session.
-                </p>
-              </div>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setKey(draftKey);
-                  setDraftKey("");
-                }}
-              >
-                <label htmlFor="operator-key">Operator API key</label>
-                <input
-                  id="operator-key"
-                  type="password"
-                  value={draftKey}
-                  onChange={(e) => setDraftKey(e.target.value)}
-                  required
-                  minLength={32}
-                  autoComplete="off"
-                />
-                <button className="primary">Connect</button>
-              </form>
-            </section>
-          )}
           {error && (
             <div role="alert" className="message error">
               {error} · Check backend connectivity and configuration.
@@ -229,7 +221,7 @@ export default function App() {
               {notice}
             </div>
           )}
-          {page === "Users" ? (key ? <Users apiKey={key} /> : <p>Sign in as an administrator to manage users.</p>) : later.includes(page) ? (
+          {page === "Users" ? <Users apiKey={key} /> : later.includes(page) ? (
             <section className="panel empty">
               <h2>{page} is scheduled for a later milestone</h2>
               <p>
@@ -527,17 +519,7 @@ export default function App() {
                   >
                     Import sessions
                   </button>
-                  <button
-                    onClick={() => {
-                      setKey("");
-                      setStatus(null);
-                      setInstruments([]);
-                      setJobs([]);
-                      setCandles([]);
-                    }}
-                  >
-                    Disconnect workspace
-                  </button>
+
                 </section>
               )}
             </>

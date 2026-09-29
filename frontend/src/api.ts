@@ -14,6 +14,9 @@ export async function request<T>(
     body: body === undefined ? undefined : JSON.stringify(body),
   });
   if (!response.ok) {
+    if (response.status === 401 && key) {
+      window.dispatchEvent(new CustomEvent("session-expired", { detail: key }));
+    }
     const data = await response.json().catch(() => ({}));
     throw new Error(
       typeof data.detail === "string"

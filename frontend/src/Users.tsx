@@ -6,18 +6,27 @@ export function LoginForm({ onLogin }: { onLogin: (token: string) => void }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
-  return <section className="panel"><h2>Sign in</h2><form onSubmit={async e => {
-    e.preventDefault(); setBusy(true); setError("");
+  const messages: Record<string, string> = {
+    INVALID_EMAIL_OR_PASSWORD: "The email or password is incorrect. Please try again.",
+    TOO_MANY_LOGIN_ATTEMPTS_TRY_IN_5_MINUTES: "Too many attempts. Please try again in five minutes.",
+  };
+  return <form className="signin-form" onSubmit={async e => {
+    e.preventDefault(); if (busy) return; setBusy(true); setError("");
     try {
       const result = await request<{token: string}>("/auth/login", "", { email, password });
+      if (!result.token) throw new Error("INVALID_LOGIN_RESPONSE");
       setPassword(""); onLogin(result.token);
-    } catch (e) { setError((e as Error).message); } finally { setBusy(false); }
+    } catch (e) {
+      setError(messages[(e as Error).message] ?? "Unable to sign in right now. Please try again.");
+    } finally { setBusy(false); }
   }}>
-    <label>Email<input type="email" autoComplete="username" required value={email} onChange={e => setEmail(e.target.value)} /></label>
-    <label>Password<input type="password" autoComplete="current-password" required minLength={8} maxLength={128} value={password} onChange={e => setPassword(e.target.value)} /></label>
-    <button className="primary" disabled={busy}>{busy ? "Signing in…" : "Sign in"}</button>
-    {error && <p role="alert">{error}</p>}
-  </form></section>;
+    <label htmlFor="signin-email">Email address</label>
+    <input id="signin-email" type="email" placeholder="you@example.com" autoComplete="username" required maxLength={254} value={email} onChange={e => setEmail(e.target.value)} disabled={busy} />
+    <label htmlFor="signin-password">Password</label>
+    <input id="signin-password" type="password" placeholder="Enter your password" autoComplete="current-password" required minLength={8} maxLength={128} value={password} onChange={e => setPassword(e.target.value)} disabled={busy} />
+    {error && <p role="alert" className="signin-error">{error}</p>}
+    <button className="primary signin-submit" disabled={busy}>{busy ? "Signing in..." : "Sign in"}<span aria-hidden="true">&rarr;</span></button>
+  </form>;
 }
 
 interface User { id: string; email: string; role: string; created_at: string }
