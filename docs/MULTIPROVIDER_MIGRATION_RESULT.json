@@ -1,0 +1,18 @@
+{
+  "before": {
+    "instruments": 9885,
+    "identity_digest": "9c5118941e23a9d3b2aa05614e0b9e687557e41e614a3fb0b9348a16f0963836",
+    "candles": 0,
+    "candle_revisions": 0
+  },
+  "after": {
+    "instruments": 9885,
+    "identity_digest": "9c5118941e23a9d3b2aa05614e0b9e687557e41e614a3fb0b9348a16f0963836",
+    "candles": 0,
+    "candle_revisions": 0
+  },
+  "missing_upstox_mappings": 0,
+  "backup": ".local\\backups\\before-multiprovider-20260927T050311-0b8d529c.dump",
+  "revision": "0003",
+  "stored_broker_connections": 0
+}

@@ -1,0 +1,13 @@
+{
+  "checked_at": "2026-09-25T16:48:54.436665+00:00",
+  "checks": {
+    "frontend": "PASS",
+    "liveness": "PASS",
+    "readiness": "PASS",
+    "unauthenticated_access_denied": "PASS",
+    "operator_and_worker": "PASS"
+  },
+  "deployment_smoke": "PASS",
+  "live_data_acceptance": "NOT_VERIFIED",
+  "timescale_acceptance": "NOT_VERIFIED"
+}

@@ -1,0 +1,212 @@
+[
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-01",
+    "opens_at": "2026-09-01T09:15:00+05:30",
+    "closes_at": "2026-09-01T15:30:00+05:30",
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-02",
+    "opens_at": "2026-09-02T09:15:00+05:30",
+    "closes_at": "2026-09-02T15:30:00+05:30",
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-03",
+    "opens_at": "2026-09-03T09:15:00+05:30",
+    "closes_at": "2026-09-03T15:30:00+05:30",
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-04",
+    "opens_at": "2026-09-04T09:15:00+05:30",
+    "closes_at": "2026-09-04T15:30:00+05:30",
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-05",
+    "opens_at": null,
+    "closes_at": null,
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-06",
+    "opens_at": null,
+    "closes_at": null,
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-07",
+    "opens_at": "2026-09-07T09:15:00+05:30",
+    "closes_at": "2026-09-07T15:30:00+05:30",
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-08",
+    "opens_at": "2026-09-08T09:15:00+05:30",
+    "closes_at": "2026-09-08T15:30:00+05:30",
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-09",
+    "opens_at": "2026-09-09T09:15:00+05:30",
+    "closes_at": "2026-09-09T15:30:00+05:30",
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-10",
+    "opens_at": "2026-09-10T09:15:00+05:30",
+    "closes_at": "2026-09-10T15:30:00+05:30",
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-11",
+    "opens_at": "2026-09-11T09:15:00+05:30",
+    "closes_at": "2026-09-11T15:30:00+05:30",
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-12",
+    "opens_at": null,
+    "closes_at": null,
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-13",
+    "opens_at": null,
+    "closes_at": null,
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-14",
+    "opens_at": null,
+    "closes_at": null,
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-15",
+    "opens_at": "2026-09-15T09:15:00+05:30",
+    "closes_at": "2026-09-15T15:30:00+05:30",
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-16",
+    "opens_at": "2026-09-16T09:15:00+05:30",
+    "closes_at": "2026-09-16T15:30:00+05:30",
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-17",
+    "opens_at": "2026-09-17T09:15:00+05:30",
+    "closes_at": "2026-09-17T15:30:00+05:30",
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-18",
+    "opens_at": "2026-09-18T09:15:00+05:30",
+    "closes_at": "2026-09-18T15:30:00+05:30",
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-19",
+    "opens_at": null,
+    "closes_at": null,
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-20",
+    "opens_at": null,
+    "closes_at": null,
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-21",
+    "opens_at": "2026-09-21T09:15:00+05:30",
+    "closes_at": "2026-09-21T15:30:00+05:30",
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-22",
+    "opens_at": "2026-09-22T09:15:00+05:30",
+    "closes_at": "2026-09-22T15:30:00+05:30",
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-23",
+    "opens_at": "2026-09-23T09:15:00+05:30",
+    "closes_at": "2026-09-23T15:30:00+05:30",
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-24",
+    "opens_at": "2026-09-24T09:15:00+05:30",
+    "closes_at": "2026-09-24T15:30:00+05:30",
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-25",
+    "opens_at": "2026-09-25T09:15:00+05:30",
+    "closes_at": "2026-09-25T15:30:00+05:30",
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-26",
+    "opens_at": null,
+    "closes_at": null,
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-27",
+    "opens_at": null,
+    "closes_at": null,
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-28",
+    "opens_at": "2026-09-28T09:15:00+05:30",
+    "closes_at": "2026-09-28T15:30:00+05:30",
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-29",
+    "opens_at": "2026-09-29T09:15:00+05:30",
+    "closes_at": "2026-09-29T15:30:00+05:30",
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  },
+  {
+    "exchange": "NSE",
+    "session_date": "2026-09-30",
+    "opens_at": "2026-09-30T09:15:00+05:30",
+    "closes_at": "2026-09-30T15:30:00+05:30",
+    "source": "NSE CMTR/71775 (2025-12-12): https://nsearchives.nseindia.com/content/circulars/CMTR71775.pdf; normal equity hours: https://www.nseindia.com/static/market-data/market-timings; reviewed 2026-09-25; September only"
+  }
+]
